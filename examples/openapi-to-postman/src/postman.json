@@ -1,0 +1,818 @@
+{
+  "info": {
+    "name": "Swagger Petstore - OpenAPI 3.0",
+    "description": {
+      "content": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\n_If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+      "type": "text/markdown"
+    },
+    "version": "1.0.11",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "store",
+      "item": [
+        {
+          "name": "/store/order/:orderId",
+          "description": "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors",
+          "item": [
+            {
+              "name": "Delete purchase order by ID",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/store/order/:orderId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["store", "order", ":orderId"],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "",
+                      "description": "ID of the order that needs to be deleted"
+                    }
+                  ],
+                  "query": []
+                },
+                "description": "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/store/inventory",
+          "description": "Returns a map of status codes to quantities",
+          "item": [
+            {
+              "name": "Returns pet inventories by status",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/store/inventory",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["store", "inventory"],
+                  "variable": [],
+                  "query": []
+                },
+                "description": "Returns a map of status codes to quantities"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/store/order/:orderId",
+          "description": "For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.",
+          "item": [
+            {
+              "name": "Find purchase order by ID",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/store/order/:orderId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["store", "order", ":orderId"],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "",
+                      "description": "ID of order that needs to be fetched"
+                    }
+                  ],
+                  "query": []
+                },
+                "description": "For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions."
+              }
+            }
+          ]
+        },
+        {
+          "name": "/store/order",
+          "description": "Place a new order in the store",
+          "item": [
+            {
+              "name": "Place an order for a pet",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n \"id\": \"<number>\",\n \"petId\": \"<number>\",\n \"quantity\": \"<number>\",\n \"shipDate\": \"<string>\",\n \"status\": \"<string>\",\n \"complete\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/store/order",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["store", "order"],
+                  "variable": [],
+                  "query": []
+                },
+                "description": "Place a new order in the store"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "/user",
+          "description": "This can only be done by the logged in user.",
+          "item": [
+            {
+              "name": "Create user",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n \"id\": \"<number>\",\n \"username\": \"<string>\",\n \"firstName\": \"<string>\",\n \"lastName\": \"<string>\",\n \"email\": \"<string>\",\n \"password\": \"<string>\",\n \"phone\": \"<string>\",\n \"userStatus\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["user"],
+                  "variable": [],
+                  "query": []
+                },
+                "description": "This can only be done by the logged in user."
+              }
+            }
+          ]
+        },
+        {
+          "name": "/user/createWithList",
+          "description": "Creates list of users with given input array",
+          "item": [
+            {
+              "name": "Creates list of users with given input array",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n \n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user/createWithList",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["user", "createWithList"],
+                  "variable": [],
+                  "query": []
+                },
+                "description": "Creates list of users with given input array"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/user/:username",
+          "description": "This can only be done by the logged in user.",
+          "item": [
+            {
+              "name": "Delete user",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user/:username",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["user", ":username"],
+                  "variable": [
+                    {
+                      "key": "username",
+                      "value": "",
+                      "description": "The name that needs to be deleted"
+                    }
+                  ],
+                  "query": []
+                },
+                "description": "This can only be done by the logged in user."
+              }
+            }
+          ]
+        },
+        {
+          "name": "/user/:username",
+          "description": "",
+          "item": [
+            {
+              "name": "Get user by user name",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user/:username",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["user", ":username"],
+                  "variable": [
+                    {
+                      "key": "username",
+                      "value": "",
+                      "description": "The name that needs to be fetched. Use user1 for testing. "
+                    }
+                  ],
+                  "query": []
+                },
+                "description": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "/user/login",
+          "description": "",
+          "item": [
+            {
+              "name": "Logs user into the system",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["user", "login"],
+                  "variable": [],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "username_example"
+                    },
+                    {
+                      "key": "password",
+                      "value": "password_example"
+                    }
+                  ]
+                },
+                "description": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "/user/logout",
+          "description": "",
+          "item": [
+            {
+              "name": "Logs out current logged in user session",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user/logout",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["user", "logout"],
+                  "variable": [],
+                  "query": []
+                },
+                "description": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "/user/:username",
+          "description": "This can only be done by the logged in user.",
+          "item": [
+            {
+              "name": "Update user",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n \"id\": \"<number>\",\n \"username\": \"<string>\",\n \"firstName\": \"<string>\",\n \"lastName\": \"<string>\",\n \"email\": \"<string>\",\n \"password\": \"<string>\",\n \"phone\": \"<string>\",\n \"userStatus\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/user/:username",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["user", ":username"],
+                  "variable": [
+                    {
+                      "key": "username",
+                      "value": "",
+                      "description": "name that need to be deleted"
+                    }
+                  ],
+                  "query": []
+                },
+                "description": "This can only be done by the logged in user."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pet",
+      "item": [
+        {
+          "name": "/pet",
+          "description": "Add a new pet to the store",
+          "item": [
+            {
+              "name": "Add a new pet to the store",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n \"id\": \"<number>\",\n \"name\": \"<string>\",\n \"category\": \"<string>\",\n \"photoUrls\": \"<string>\",\n \"tags\": \"<string>\",\n \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet"],
+                  "variable": [],
+                  "query": []
+                },
+                "description": "Add a new pet to the store"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/pet/:petId",
+          "description": "delete a pet",
+          "item": [
+            {
+              "name": "Deletes a pet",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "api_key",
+                    "value": "",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet/:petId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet", ":petId"],
+                  "variable": [
+                    {
+                      "key": "petId",
+                      "value": "",
+                      "description": "Pet id to delete"
+                    }
+                  ],
+                  "query": []
+                },
+                "description": "delete a pet"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/pet/findByStatus",
+          "description": "Multiple status values can be provided with comma separated strings",
+          "item": [
+            {
+              "name": "Finds Pets by status",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet/findByStatus",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet", "findByStatus"],
+                  "variable": [],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "status_example"
+                    }
+                  ]
+                },
+                "description": "Multiple status values can be provided with comma separated strings"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/pet/findByTags",
+          "description": "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+          "item": [
+            {
+              "name": "Finds Pets by tags",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet/findByTags",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet", "findByTags"],
+                  "variable": [],
+                  "query": [
+                    {
+                      "key": "tags",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing."
+              }
+            }
+          ]
+        },
+        {
+          "name": "/pet/:petId",
+          "description": "Returns a single pet",
+          "item": [
+            {
+              "name": "Find pet by ID",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet/:petId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet", ":petId"],
+                  "variable": [
+                    {
+                      "key": "petId",
+                      "value": "",
+                      "description": "ID of pet to return"
+                    }
+                  ],
+                  "query": []
+                },
+                "description": "Returns a single pet"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/pet",
+          "description": "Update an existing pet by Id",
+          "item": [
+            {
+              "name": "Update an existing pet",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n \"id\": \"<number>\",\n \"name\": \"<string>\",\n \"category\": \"<string>\",\n \"photoUrls\": \"<string>\",\n \"tags\": \"<string>\",\n \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet"],
+                  "variable": [],
+                  "query": []
+                },
+                "description": "Update an existing pet by Id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "/pet/:petId",
+          "description": "",
+          "item": [
+            {
+              "name": "Updates a pet in the store with form data",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet/:petId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet", ":petId"],
+                  "variable": [
+                    {
+                      "key": "petId",
+                      "value": "",
+                      "description": "ID of pet that needs to be updated"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "name_example"
+                    },
+                    {
+                      "key": "status",
+                      "value": "status_example"
+                    }
+                  ]
+                },
+                "description": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "/pet/:petId/uploadImage",
+          "description": "",
+          "item": [
+            {
+              "name": "uploads an image",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/octet-stream",
+                    "disabled": false
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "disabled": false
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pet/:petId/uploadImage",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["pet", ":petId", "uploadImage"],
+                  "variable": [
+                    {
+                      "key": "petId",
+                      "value": "",
+                      "description": "ID of pet to update"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "additionalMetadata",
+                      "value": "additionalMetadata_example"
+                    }
+                  ]
+                },
+                "description": ""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://petstore3.swagger.io/api/v3",
+      "type": "string"
+    },
+    {
+      "key": "api_key",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

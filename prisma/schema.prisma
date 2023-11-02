@@ -10,47 +10,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// 🏯
+model Bujinkan {
+  id      Int      @id @default(autoincrement())
+  lessons Lesson[]
+  name    String
+}
+
+// 🥷۪
+model Sensei {
+  id      Int      @id @default(autoincrement())
+  lessons Lesson[]
+  name    String
+}
+
+// 👨‍🎓
 model Padowan {
-  id         Int      @id @default(autoincrement())
-  bujinkan   Bujinkan @relation(fields: [bujinkanId], references: [id])
+  id      Int               @id @default(autoincrement())
+  lessons PadowanToLesson[]
+  name    String
+}
+
+// ✍️
+model Lesson {
+  id         Int               @id @default(autoincrement())
   bujinkanId Int
-  name       String
-  sensei     Sensei   @relation(fields: [senseiId], references: [id])
+  bujinkan   Bujinkan          @relation(fields: [bujinkanId], references: [id])
+  lessonTime DateTime
+  padowans   PadowanToLesson[]
+  subject    Subject
+  sensei     Sensei            @relation(fields: [senseiId], references: [id])
   senseiId   Int
 }
 
-model Sensei {
-  id             Int        @id @default(autoincrement())
-  bujinkan       Bujinkan   @relation(fields: [bujinkanId], references: [id])
-  bujinkanId     Int
-  favoriteWeapon Weapon
-  mainArt        MartialArt
-  name           String
-  padowans       Padowan[]
+model PadowanToLesson {
+  lesson     Lesson   @relation(fields: [lessonId], references: [id])
+  assignedAt DateTime @default(now())
+  lessonId   Int
+  padowan    Padowan  @relation(fields: [padowanId], references: [id])
+  padowanId  Int
+
+  @@id([padowanId, lessonId])
 }
 
-model Bujinkan {
-  id       Int        @id @default(autoincrement())
-  name     String
-  mainArt  MartialArt
-  padowans Padowan[]
-  senseis  Sensei[]
-}
-
-enum MartialArt {
-  Taijutsu
-  Kenjutsu
-  Naginatajutsu
-  Shurikenjutsu
-  Kayakujutsu
-  Bajutsu
-}
-
-enum Weapon {
-  Sword
-  Spear
-  Naginata
-  Shuriken
-  Kunai
-  Kaginawa
+// 📚
+enum Subject {
+  Diversion // 💣
+  Escape // 🏃
+  HandFight // 👊
+  Hiding // 🌘
+  InfoGathering // 🦻
+  Masking // 🎭
+  Assasination // 🗡️
 }

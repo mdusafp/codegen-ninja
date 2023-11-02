@@ -1,0 +1,12 @@
+.openapi-generator-ignore
+openapi2graphql/api/pet_api.graphql
+openapi2graphql/api/store_api.graphql
+openapi2graphql/api/user_api.graphql
+openapi2graphql/model/address.graphql
+openapi2graphql/model/api_response.graphql
+openapi2graphql/model/category.graphql
+openapi2graphql/model/customer.graphql
+openapi2graphql/model/order.graphql
+openapi2graphql/model/pet.graphql
+openapi2graphql/model/tag.graphql
+openapi2graphql/model/user.graphql

@@ -1,0 +1,4011 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""
+whether this query should be cached (Hasura Cloud only)
+"""
+directive @cached(
+  """
+  measured in seconds
+  """
+  ttl: Int! = 60
+
+  """
+  refresh the cache entry
+  """
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+columns and relationships of "Bujinkan"
+"""
+type Bujinkan {
+  """
+  An array relationship
+  """
+  Lessons(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): [Lesson!]!
+
+  """
+  An aggregate relationship
+  """
+  Lessons_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): Lesson_aggregate!
+  id: Int!
+  name: String!
+}
+
+"""
+aggregated selection of "Bujinkan"
+"""
+type Bujinkan_aggregate {
+  aggregate: Bujinkan_aggregate_fields
+  nodes: [Bujinkan!]!
+}
+
+"""
+aggregate fields of "Bujinkan"
+"""
+type Bujinkan_aggregate_fields {
+  avg: Bujinkan_avg_fields
+  count(columns: [Bujinkan_select_column!], distinct: Boolean): Int!
+  max: Bujinkan_max_fields
+  min: Bujinkan_min_fields
+  stddev: Bujinkan_stddev_fields
+  stddev_pop: Bujinkan_stddev_pop_fields
+  stddev_samp: Bujinkan_stddev_samp_fields
+  sum: Bujinkan_sum_fields
+  var_pop: Bujinkan_var_pop_fields
+  var_samp: Bujinkan_var_samp_fields
+  variance: Bujinkan_variance_fields
+}
+
+"""
+aggregate avg on columns
+"""
+type Bujinkan_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "Bujinkan". All fields are combined with a logical 'AND'.
+"""
+input Bujinkan_bool_exp {
+  Lessons: Lesson_bool_exp
+  Lessons_aggregate: Lesson_aggregate_bool_exp
+  _and: [Bujinkan_bool_exp!]
+  _not: Bujinkan_bool_exp
+  _or: [Bujinkan_bool_exp!]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Bujinkan"
+"""
+enum Bujinkan_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Bujinkan_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Bujinkan"
+"""
+input Bujinkan_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "Bujinkan"
+"""
+input Bujinkan_insert_input {
+  Lessons: Lesson_arr_rel_insert_input
+  id: Int
+  name: String
+}
+
+"""
+aggregate max on columns
+"""
+type Bujinkan_max_fields {
+  id: Int
+  name: String
+}
+
+"""
+aggregate min on columns
+"""
+type Bujinkan_min_fields {
+  id: Int
+  name: String
+}
+
+"""
+response of any mutation on the table "Bujinkan"
+"""
+type Bujinkan_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [Bujinkan!]!
+}
+
+"""
+input type for inserting object relation for remote table "Bujinkan"
+"""
+input Bujinkan_obj_rel_insert_input {
+  data: Bujinkan_insert_input!
+
+  """
+  upsert condition
+  """
+  on_conflict: Bujinkan_on_conflict
+}
+
+"""
+on_conflict condition type for table "Bujinkan"
+"""
+input Bujinkan_on_conflict {
+  constraint: Bujinkan_constraint!
+  update_columns: [Bujinkan_update_column!]! = []
+  where: Bujinkan_bool_exp
+}
+
+"""
+Ordering options when selecting data from "Bujinkan".
+"""
+input Bujinkan_order_by {
+  Lessons_aggregate: Lesson_aggregate_order_by
+  id: order_by
+  name: order_by
+}
+
+"""
+primary key columns input for table: Bujinkan
+"""
+input Bujinkan_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "Bujinkan"
+"""
+enum Bujinkan_select_column {
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+}
+
+"""
+input type for updating data in table "Bujinkan"
+"""
+input Bujinkan_set_input {
+  id: Int
+  name: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type Bujinkan_stddev_fields {
+  id: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type Bujinkan_stddev_pop_fields {
+  id: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type Bujinkan_stddev_samp_fields {
+  id: Float
+}
+
+"""
+Streaming cursor of the table "Bujinkan"
+"""
+input Bujinkan_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: Bujinkan_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input Bujinkan_stream_cursor_value_input {
+  id: Int
+  name: String
+}
+
+"""
+aggregate sum on columns
+"""
+type Bujinkan_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "Bujinkan"
+"""
+enum Bujinkan_update_column {
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+}
+
+input Bujinkan_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: Bujinkan_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: Bujinkan_set_input
+
+  """
+  filter the rows which have to be updated
+  """
+  where: Bujinkan_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type Bujinkan_var_pop_fields {
+  id: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type Bujinkan_var_samp_fields {
+  id: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type Bujinkan_variance_fields {
+  id: Float
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+columns and relationships of "Lesson"
+"""
+type Lesson {
+  """
+  An object relationship
+  """
+  Bujinkan: Bujinkan!
+
+  """
+  An array relationship
+  """
+  PadowanToLessons(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): [PadowanToLesson!]!
+
+  """
+  An aggregate relationship
+  """
+  PadowanToLessons_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): PadowanToLesson_aggregate!
+
+  """
+  An object relationship
+  """
+  Sensei: Sensei!
+  bujinkanId: Int!
+  id: Int!
+  lessonTime: timestamp!
+  senseiId: Int!
+  subject: Subject!
+}
+
+"""
+aggregated selection of "Lesson"
+"""
+type Lesson_aggregate {
+  aggregate: Lesson_aggregate_fields
+  nodes: [Lesson!]!
+}
+
+input Lesson_aggregate_bool_exp {
+  count: Lesson_aggregate_bool_exp_count
+}
+
+input Lesson_aggregate_bool_exp_count {
+  arguments: [Lesson_select_column!]
+  distinct: Boolean
+  filter: Lesson_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "Lesson"
+"""
+type Lesson_aggregate_fields {
+  avg: Lesson_avg_fields
+  count(columns: [Lesson_select_column!], distinct: Boolean): Int!
+  max: Lesson_max_fields
+  min: Lesson_min_fields
+  stddev: Lesson_stddev_fields
+  stddev_pop: Lesson_stddev_pop_fields
+  stddev_samp: Lesson_stddev_samp_fields
+  sum: Lesson_sum_fields
+  var_pop: Lesson_var_pop_fields
+  var_samp: Lesson_var_samp_fields
+  variance: Lesson_variance_fields
+}
+
+"""
+order by aggregate values of table "Lesson"
+"""
+input Lesson_aggregate_order_by {
+  avg: Lesson_avg_order_by
+  count: order_by
+  max: Lesson_max_order_by
+  min: Lesson_min_order_by
+  stddev: Lesson_stddev_order_by
+  stddev_pop: Lesson_stddev_pop_order_by
+  stddev_samp: Lesson_stddev_samp_order_by
+  sum: Lesson_sum_order_by
+  var_pop: Lesson_var_pop_order_by
+  var_samp: Lesson_var_samp_order_by
+  variance: Lesson_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "Lesson"
+"""
+input Lesson_arr_rel_insert_input {
+  data: [Lesson_insert_input!]!
+
+  """
+  upsert condition
+  """
+  on_conflict: Lesson_on_conflict
+}
+
+"""
+aggregate avg on columns
+"""
+type Lesson_avg_fields {
+  bujinkanId: Float
+  id: Float
+  senseiId: Float
+}
+
+"""
+order by avg() on columns of table "Lesson"
+"""
+input Lesson_avg_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "Lesson". All fields are combined with a logical 'AND'.
+"""
+input Lesson_bool_exp {
+  Bujinkan: Bujinkan_bool_exp
+  PadowanToLessons: PadowanToLesson_bool_exp
+  PadowanToLessons_aggregate: PadowanToLesson_aggregate_bool_exp
+  Sensei: Sensei_bool_exp
+  _and: [Lesson_bool_exp!]
+  _not: Lesson_bool_exp
+  _or: [Lesson_bool_exp!]
+  bujinkanId: Int_comparison_exp
+  id: Int_comparison_exp
+  lessonTime: timestamp_comparison_exp
+  senseiId: Int_comparison_exp
+  subject: Subject_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Lesson"
+"""
+enum Lesson_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Lesson_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Lesson"
+"""
+input Lesson_inc_input {
+  bujinkanId: Int
+  id: Int
+  senseiId: Int
+}
+
+"""
+input type for inserting data into table "Lesson"
+"""
+input Lesson_insert_input {
+  Bujinkan: Bujinkan_obj_rel_insert_input
+  PadowanToLessons: PadowanToLesson_arr_rel_insert_input
+  Sensei: Sensei_obj_rel_insert_input
+  bujinkanId: Int
+  id: Int
+  lessonTime: timestamp
+  senseiId: Int
+  subject: Subject
+}
+
+"""
+aggregate max on columns
+"""
+type Lesson_max_fields {
+  bujinkanId: Int
+  id: Int
+  lessonTime: timestamp
+  senseiId: Int
+  subject: Subject
+}
+
+"""
+order by max() on columns of table "Lesson"
+"""
+input Lesson_max_order_by {
+  bujinkanId: order_by
+  id: order_by
+  lessonTime: order_by
+  senseiId: order_by
+  subject: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type Lesson_min_fields {
+  bujinkanId: Int
+  id: Int
+  lessonTime: timestamp
+  senseiId: Int
+  subject: Subject
+}
+
+"""
+order by min() on columns of table "Lesson"
+"""
+input Lesson_min_order_by {
+  bujinkanId: order_by
+  id: order_by
+  lessonTime: order_by
+  senseiId: order_by
+  subject: order_by
+}
+
+"""
+response of any mutation on the table "Lesson"
+"""
+type Lesson_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [Lesson!]!
+}
+
+"""
+input type for inserting object relation for remote table "Lesson"
+"""
+input Lesson_obj_rel_insert_input {
+  data: Lesson_insert_input!
+
+  """
+  upsert condition
+  """
+  on_conflict: Lesson_on_conflict
+}
+
+"""
+on_conflict condition type for table "Lesson"
+"""
+input Lesson_on_conflict {
+  constraint: Lesson_constraint!
+  update_columns: [Lesson_update_column!]! = []
+  where: Lesson_bool_exp
+}
+
+"""
+Ordering options when selecting data from "Lesson".
+"""
+input Lesson_order_by {
+  Bujinkan: Bujinkan_order_by
+  PadowanToLessons_aggregate: PadowanToLesson_aggregate_order_by
+  Sensei: Sensei_order_by
+  bujinkanId: order_by
+  id: order_by
+  lessonTime: order_by
+  senseiId: order_by
+  subject: order_by
+}
+
+"""
+primary key columns input for table: Lesson
+"""
+input Lesson_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "Lesson"
+"""
+enum Lesson_select_column {
+  """
+  column name
+  """
+  bujinkanId
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  lessonTime
+
+  """
+  column name
+  """
+  senseiId
+
+  """
+  column name
+  """
+  subject
+}
+
+"""
+input type for updating data in table "Lesson"
+"""
+input Lesson_set_input {
+  bujinkanId: Int
+  id: Int
+  lessonTime: timestamp
+  senseiId: Int
+  subject: Subject
+}
+
+"""
+aggregate stddev on columns
+"""
+type Lesson_stddev_fields {
+  bujinkanId: Float
+  id: Float
+  senseiId: Float
+}
+
+"""
+order by stddev() on columns of table "Lesson"
+"""
+input Lesson_stddev_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type Lesson_stddev_pop_fields {
+  bujinkanId: Float
+  id: Float
+  senseiId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Lesson"
+"""
+input Lesson_stddev_pop_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type Lesson_stddev_samp_fields {
+  bujinkanId: Float
+  id: Float
+  senseiId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Lesson"
+"""
+input Lesson_stddev_samp_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+Streaming cursor of the table "Lesson"
+"""
+input Lesson_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: Lesson_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input Lesson_stream_cursor_value_input {
+  bujinkanId: Int
+  id: Int
+  lessonTime: timestamp
+  senseiId: Int
+  subject: Subject
+}
+
+"""
+aggregate sum on columns
+"""
+type Lesson_sum_fields {
+  bujinkanId: Int
+  id: Int
+  senseiId: Int
+}
+
+"""
+order by sum() on columns of table "Lesson"
+"""
+input Lesson_sum_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+update columns of table "Lesson"
+"""
+enum Lesson_update_column {
+  """
+  column name
+  """
+  bujinkanId
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  lessonTime
+
+  """
+  column name
+  """
+  senseiId
+
+  """
+  column name
+  """
+  subject
+}
+
+input Lesson_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: Lesson_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: Lesson_set_input
+
+  """
+  filter the rows which have to be updated
+  """
+  where: Lesson_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type Lesson_var_pop_fields {
+  bujinkanId: Float
+  id: Float
+  senseiId: Float
+}
+
+"""
+order by var_pop() on columns of table "Lesson"
+"""
+input Lesson_var_pop_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+aggregate var_samp on columns
+"""
+type Lesson_var_samp_fields {
+  bujinkanId: Float
+  id: Float
+  senseiId: Float
+}
+
+"""
+order by var_samp() on columns of table "Lesson"
+"""
+input Lesson_var_samp_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+aggregate variance on columns
+"""
+type Lesson_variance_fields {
+  bujinkanId: Float
+  id: Float
+  senseiId: Float
+}
+
+"""
+order by variance() on columns of table "Lesson"
+"""
+input Lesson_variance_order_by {
+  bujinkanId: order_by
+  id: order_by
+  senseiId: order_by
+}
+
+"""
+columns and relationships of "Padowan"
+"""
+type Padowan {
+  """
+  An array relationship
+  """
+  PadowanToLessons(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): [PadowanToLesson!]!
+
+  """
+  An aggregate relationship
+  """
+  PadowanToLessons_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): PadowanToLesson_aggregate!
+  id: Int!
+  name: String!
+}
+
+"""
+columns and relationships of "PadowanToLesson"
+"""
+type PadowanToLesson {
+  """
+  An object relationship
+  """
+  Lesson: Lesson!
+
+  """
+  An object relationship
+  """
+  Padowan: Padowan!
+  assignedAt: timestamp!
+  lessonId: Int!
+  padowanId: Int!
+}
+
+"""
+aggregated selection of "PadowanToLesson"
+"""
+type PadowanToLesson_aggregate {
+  aggregate: PadowanToLesson_aggregate_fields
+  nodes: [PadowanToLesson!]!
+}
+
+input PadowanToLesson_aggregate_bool_exp {
+  count: PadowanToLesson_aggregate_bool_exp_count
+}
+
+input PadowanToLesson_aggregate_bool_exp_count {
+  arguments: [PadowanToLesson_select_column!]
+  distinct: Boolean
+  filter: PadowanToLesson_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "PadowanToLesson"
+"""
+type PadowanToLesson_aggregate_fields {
+  avg: PadowanToLesson_avg_fields
+  count(columns: [PadowanToLesson_select_column!], distinct: Boolean): Int!
+  max: PadowanToLesson_max_fields
+  min: PadowanToLesson_min_fields
+  stddev: PadowanToLesson_stddev_fields
+  stddev_pop: PadowanToLesson_stddev_pop_fields
+  stddev_samp: PadowanToLesson_stddev_samp_fields
+  sum: PadowanToLesson_sum_fields
+  var_pop: PadowanToLesson_var_pop_fields
+  var_samp: PadowanToLesson_var_samp_fields
+  variance: PadowanToLesson_variance_fields
+}
+
+"""
+order by aggregate values of table "PadowanToLesson"
+"""
+input PadowanToLesson_aggregate_order_by {
+  avg: PadowanToLesson_avg_order_by
+  count: order_by
+  max: PadowanToLesson_max_order_by
+  min: PadowanToLesson_min_order_by
+  stddev: PadowanToLesson_stddev_order_by
+  stddev_pop: PadowanToLesson_stddev_pop_order_by
+  stddev_samp: PadowanToLesson_stddev_samp_order_by
+  sum: PadowanToLesson_sum_order_by
+  var_pop: PadowanToLesson_var_pop_order_by
+  var_samp: PadowanToLesson_var_samp_order_by
+  variance: PadowanToLesson_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "PadowanToLesson"
+"""
+input PadowanToLesson_arr_rel_insert_input {
+  data: [PadowanToLesson_insert_input!]!
+
+  """
+  upsert condition
+  """
+  on_conflict: PadowanToLesson_on_conflict
+}
+
+"""
+aggregate avg on columns
+"""
+type PadowanToLesson_avg_fields {
+  lessonId: Float
+  padowanId: Float
+}
+
+"""
+order by avg() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_avg_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "PadowanToLesson". All fields are combined with a logical 'AND'.
+"""
+input PadowanToLesson_bool_exp {
+  Lesson: Lesson_bool_exp
+  Padowan: Padowan_bool_exp
+  _and: [PadowanToLesson_bool_exp!]
+  _not: PadowanToLesson_bool_exp
+  _or: [PadowanToLesson_bool_exp!]
+  assignedAt: timestamp_comparison_exp
+  lessonId: Int_comparison_exp
+  padowanId: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "PadowanToLesson"
+"""
+enum PadowanToLesson_constraint {
+  """
+  unique or primary key constraint on columns "lessonId", "padowanId"
+  """
+  PadowanToLesson_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "PadowanToLesson"
+"""
+input PadowanToLesson_inc_input {
+  lessonId: Int
+  padowanId: Int
+}
+
+"""
+input type for inserting data into table "PadowanToLesson"
+"""
+input PadowanToLesson_insert_input {
+  Lesson: Lesson_obj_rel_insert_input
+  Padowan: Padowan_obj_rel_insert_input
+  assignedAt: timestamp
+  lessonId: Int
+  padowanId: Int
+}
+
+"""
+aggregate max on columns
+"""
+type PadowanToLesson_max_fields {
+  assignedAt: timestamp
+  lessonId: Int
+  padowanId: Int
+}
+
+"""
+order by max() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_max_order_by {
+  assignedAt: order_by
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type PadowanToLesson_min_fields {
+  assignedAt: timestamp
+  lessonId: Int
+  padowanId: Int
+}
+
+"""
+order by min() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_min_order_by {
+  assignedAt: order_by
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+response of any mutation on the table "PadowanToLesson"
+"""
+type PadowanToLesson_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [PadowanToLesson!]!
+}
+
+"""
+on_conflict condition type for table "PadowanToLesson"
+"""
+input PadowanToLesson_on_conflict {
+  constraint: PadowanToLesson_constraint!
+  update_columns: [PadowanToLesson_update_column!]! = []
+  where: PadowanToLesson_bool_exp
+}
+
+"""
+Ordering options when selecting data from "PadowanToLesson".
+"""
+input PadowanToLesson_order_by {
+  Lesson: Lesson_order_by
+  Padowan: Padowan_order_by
+  assignedAt: order_by
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+primary key columns input for table: PadowanToLesson
+"""
+input PadowanToLesson_pk_columns_input {
+  lessonId: Int!
+  padowanId: Int!
+}
+
+"""
+select columns of table "PadowanToLesson"
+"""
+enum PadowanToLesson_select_column {
+  """
+  column name
+  """
+  assignedAt
+
+  """
+  column name
+  """
+  lessonId
+
+  """
+  column name
+  """
+  padowanId
+}
+
+"""
+input type for updating data in table "PadowanToLesson"
+"""
+input PadowanToLesson_set_input {
+  assignedAt: timestamp
+  lessonId: Int
+  padowanId: Int
+}
+
+"""
+aggregate stddev on columns
+"""
+type PadowanToLesson_stddev_fields {
+  lessonId: Float
+  padowanId: Float
+}
+
+"""
+order by stddev() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_stddev_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type PadowanToLesson_stddev_pop_fields {
+  lessonId: Float
+  padowanId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_stddev_pop_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type PadowanToLesson_stddev_samp_fields {
+  lessonId: Float
+  padowanId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_stddev_samp_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+Streaming cursor of the table "PadowanToLesson"
+"""
+input PadowanToLesson_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: PadowanToLesson_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input PadowanToLesson_stream_cursor_value_input {
+  assignedAt: timestamp
+  lessonId: Int
+  padowanId: Int
+}
+
+"""
+aggregate sum on columns
+"""
+type PadowanToLesson_sum_fields {
+  lessonId: Int
+  padowanId: Int
+}
+
+"""
+order by sum() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_sum_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+update columns of table "PadowanToLesson"
+"""
+enum PadowanToLesson_update_column {
+  """
+  column name
+  """
+  assignedAt
+
+  """
+  column name
+  """
+  lessonId
+
+  """
+  column name
+  """
+  padowanId
+}
+
+input PadowanToLesson_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: PadowanToLesson_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: PadowanToLesson_set_input
+
+  """
+  filter the rows which have to be updated
+  """
+  where: PadowanToLesson_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type PadowanToLesson_var_pop_fields {
+  lessonId: Float
+  padowanId: Float
+}
+
+"""
+order by var_pop() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_var_pop_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+aggregate var_samp on columns
+"""
+type PadowanToLesson_var_samp_fields {
+  lessonId: Float
+  padowanId: Float
+}
+
+"""
+order by var_samp() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_var_samp_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+aggregate variance on columns
+"""
+type PadowanToLesson_variance_fields {
+  lessonId: Float
+  padowanId: Float
+}
+
+"""
+order by variance() on columns of table "PadowanToLesson"
+"""
+input PadowanToLesson_variance_order_by {
+  lessonId: order_by
+  padowanId: order_by
+}
+
+"""
+aggregated selection of "Padowan"
+"""
+type Padowan_aggregate {
+  aggregate: Padowan_aggregate_fields
+  nodes: [Padowan!]!
+}
+
+"""
+aggregate fields of "Padowan"
+"""
+type Padowan_aggregate_fields {
+  avg: Padowan_avg_fields
+  count(columns: [Padowan_select_column!], distinct: Boolean): Int!
+  max: Padowan_max_fields
+  min: Padowan_min_fields
+  stddev: Padowan_stddev_fields
+  stddev_pop: Padowan_stddev_pop_fields
+  stddev_samp: Padowan_stddev_samp_fields
+  sum: Padowan_sum_fields
+  var_pop: Padowan_var_pop_fields
+  var_samp: Padowan_var_samp_fields
+  variance: Padowan_variance_fields
+}
+
+"""
+aggregate avg on columns
+"""
+type Padowan_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "Padowan". All fields are combined with a logical 'AND'.
+"""
+input Padowan_bool_exp {
+  PadowanToLessons: PadowanToLesson_bool_exp
+  PadowanToLessons_aggregate: PadowanToLesson_aggregate_bool_exp
+  _and: [Padowan_bool_exp!]
+  _not: Padowan_bool_exp
+  _or: [Padowan_bool_exp!]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Padowan"
+"""
+enum Padowan_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Padowan_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Padowan"
+"""
+input Padowan_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "Padowan"
+"""
+input Padowan_insert_input {
+  PadowanToLessons: PadowanToLesson_arr_rel_insert_input
+  id: Int
+  name: String
+}
+
+"""
+aggregate max on columns
+"""
+type Padowan_max_fields {
+  id: Int
+  name: String
+}
+
+"""
+aggregate min on columns
+"""
+type Padowan_min_fields {
+  id: Int
+  name: String
+}
+
+"""
+response of any mutation on the table "Padowan"
+"""
+type Padowan_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [Padowan!]!
+}
+
+"""
+input type for inserting object relation for remote table "Padowan"
+"""
+input Padowan_obj_rel_insert_input {
+  data: Padowan_insert_input!
+
+  """
+  upsert condition
+  """
+  on_conflict: Padowan_on_conflict
+}
+
+"""
+on_conflict condition type for table "Padowan"
+"""
+input Padowan_on_conflict {
+  constraint: Padowan_constraint!
+  update_columns: [Padowan_update_column!]! = []
+  where: Padowan_bool_exp
+}
+
+"""
+Ordering options when selecting data from "Padowan".
+"""
+input Padowan_order_by {
+  PadowanToLessons_aggregate: PadowanToLesson_aggregate_order_by
+  id: order_by
+  name: order_by
+}
+
+"""
+primary key columns input for table: Padowan
+"""
+input Padowan_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "Padowan"
+"""
+enum Padowan_select_column {
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+}
+
+"""
+input type for updating data in table "Padowan"
+"""
+input Padowan_set_input {
+  id: Int
+  name: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type Padowan_stddev_fields {
+  id: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type Padowan_stddev_pop_fields {
+  id: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type Padowan_stddev_samp_fields {
+  id: Float
+}
+
+"""
+Streaming cursor of the table "Padowan"
+"""
+input Padowan_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: Padowan_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input Padowan_stream_cursor_value_input {
+  id: Int
+  name: String
+}
+
+"""
+aggregate sum on columns
+"""
+type Padowan_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "Padowan"
+"""
+enum Padowan_update_column {
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+}
+
+input Padowan_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: Padowan_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: Padowan_set_input
+
+  """
+  filter the rows which have to be updated
+  """
+  where: Padowan_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type Padowan_var_pop_fields {
+  id: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type Padowan_var_samp_fields {
+  id: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type Padowan_variance_fields {
+  id: Float
+}
+
+"""
+columns and relationships of "Sensei"
+"""
+type Sensei {
+  """
+  An array relationship
+  """
+  Lessons(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): [Lesson!]!
+
+  """
+  An aggregate relationship
+  """
+  Lessons_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): Lesson_aggregate!
+  id: Int!
+  name: String!
+}
+
+"""
+aggregated selection of "Sensei"
+"""
+type Sensei_aggregate {
+  aggregate: Sensei_aggregate_fields
+  nodes: [Sensei!]!
+}
+
+"""
+aggregate fields of "Sensei"
+"""
+type Sensei_aggregate_fields {
+  avg: Sensei_avg_fields
+  count(columns: [Sensei_select_column!], distinct: Boolean): Int!
+  max: Sensei_max_fields
+  min: Sensei_min_fields
+  stddev: Sensei_stddev_fields
+  stddev_pop: Sensei_stddev_pop_fields
+  stddev_samp: Sensei_stddev_samp_fields
+  sum: Sensei_sum_fields
+  var_pop: Sensei_var_pop_fields
+  var_samp: Sensei_var_samp_fields
+  variance: Sensei_variance_fields
+}
+
+"""
+aggregate avg on columns
+"""
+type Sensei_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "Sensei". All fields are combined with a logical 'AND'.
+"""
+input Sensei_bool_exp {
+  Lessons: Lesson_bool_exp
+  Lessons_aggregate: Lesson_aggregate_bool_exp
+  _and: [Sensei_bool_exp!]
+  _not: Sensei_bool_exp
+  _or: [Sensei_bool_exp!]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Sensei"
+"""
+enum Sensei_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Sensei_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Sensei"
+"""
+input Sensei_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "Sensei"
+"""
+input Sensei_insert_input {
+  Lessons: Lesson_arr_rel_insert_input
+  id: Int
+  name: String
+}
+
+"""
+aggregate max on columns
+"""
+type Sensei_max_fields {
+  id: Int
+  name: String
+}
+
+"""
+aggregate min on columns
+"""
+type Sensei_min_fields {
+  id: Int
+  name: String
+}
+
+"""
+response of any mutation on the table "Sensei"
+"""
+type Sensei_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [Sensei!]!
+}
+
+"""
+input type for inserting object relation for remote table "Sensei"
+"""
+input Sensei_obj_rel_insert_input {
+  data: Sensei_insert_input!
+
+  """
+  upsert condition
+  """
+  on_conflict: Sensei_on_conflict
+}
+
+"""
+on_conflict condition type for table "Sensei"
+"""
+input Sensei_on_conflict {
+  constraint: Sensei_constraint!
+  update_columns: [Sensei_update_column!]! = []
+  where: Sensei_bool_exp
+}
+
+"""
+Ordering options when selecting data from "Sensei".
+"""
+input Sensei_order_by {
+  Lessons_aggregate: Lesson_aggregate_order_by
+  id: order_by
+  name: order_by
+}
+
+"""
+primary key columns input for table: Sensei
+"""
+input Sensei_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "Sensei"
+"""
+enum Sensei_select_column {
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+}
+
+"""
+input type for updating data in table "Sensei"
+"""
+input Sensei_set_input {
+  id: Int
+  name: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type Sensei_stddev_fields {
+  id: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type Sensei_stddev_pop_fields {
+  id: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type Sensei_stddev_samp_fields {
+  id: Float
+}
+
+"""
+Streaming cursor of the table "Sensei"
+"""
+input Sensei_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: Sensei_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input Sensei_stream_cursor_value_input {
+  id: Int
+  name: String
+}
+
+"""
+aggregate sum on columns
+"""
+type Sensei_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "Sensei"
+"""
+enum Sensei_update_column {
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  name
+}
+
+input Sensei_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: Sensei_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: Sensei_set_input
+
+  """
+  filter the rows which have to be updated
+  """
+  where: Sensei_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type Sensei_var_pop_fields {
+  id: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type Sensei_var_samp_fields {
+  id: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type Sensei_variance_fields {
+  id: Float
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """
+  does the column match the given case-insensitive pattern
+  """
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """
+  does the column match the given pattern
+  """
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """
+  does the column NOT match the given case-insensitive pattern
+  """
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """
+  does the column NOT match the given pattern
+  """
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """
+  does the column NOT match the given SQL regular expression
+  """
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """
+  does the column match the given SQL regular expression
+  """
+  _similar: String
+}
+
+scalar Subject
+
+"""
+Boolean expression to compare columns of type "Subject". All fields are combined with logical 'AND'.
+"""
+input Subject_comparison_exp {
+  _eq: Subject
+  _gt: Subject
+  _gte: Subject
+  _in: [Subject!]
+  _is_null: Boolean
+  _lt: Subject
+  _lte: Subject
+  _neq: Subject
+  _nin: [Subject!]
+}
+
+"""
+columns and relationships of "_prisma_migrations"
+"""
+type _prisma_migrations {
+  applied_steps_count: Int!
+  checksum: String!
+  finished_at: timestamptz
+  id: String!
+  logs: String
+  migration_name: String!
+  rolled_back_at: timestamptz
+  started_at: timestamptz!
+}
+
+"""
+aggregated selection of "_prisma_migrations"
+"""
+type _prisma_migrations_aggregate {
+  aggregate: _prisma_migrations_aggregate_fields
+  nodes: [_prisma_migrations!]!
+}
+
+"""
+aggregate fields of "_prisma_migrations"
+"""
+type _prisma_migrations_aggregate_fields {
+  avg: _prisma_migrations_avg_fields
+  count(columns: [_prisma_migrations_select_column!], distinct: Boolean): Int!
+  max: _prisma_migrations_max_fields
+  min: _prisma_migrations_min_fields
+  stddev: _prisma_migrations_stddev_fields
+  stddev_pop: _prisma_migrations_stddev_pop_fields
+  stddev_samp: _prisma_migrations_stddev_samp_fields
+  sum: _prisma_migrations_sum_fields
+  var_pop: _prisma_migrations_var_pop_fields
+  var_samp: _prisma_migrations_var_samp_fields
+  variance: _prisma_migrations_variance_fields
+}
+
+"""
+aggregate avg on columns
+"""
+type _prisma_migrations_avg_fields {
+  applied_steps_count: Float
+}
+
+"""
+Boolean expression to filter rows from the table "_prisma_migrations". All fields are combined with a logical 'AND'.
+"""
+input _prisma_migrations_bool_exp {
+  _and: [_prisma_migrations_bool_exp!]
+  _not: _prisma_migrations_bool_exp
+  _or: [_prisma_migrations_bool_exp!]
+  applied_steps_count: Int_comparison_exp
+  checksum: String_comparison_exp
+  finished_at: timestamptz_comparison_exp
+  id: String_comparison_exp
+  logs: String_comparison_exp
+  migration_name: String_comparison_exp
+  rolled_back_at: timestamptz_comparison_exp
+  started_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "_prisma_migrations"
+"""
+enum _prisma_migrations_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  _prisma_migrations_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "_prisma_migrations"
+"""
+input _prisma_migrations_inc_input {
+  applied_steps_count: Int
+}
+
+"""
+input type for inserting data into table "_prisma_migrations"
+"""
+input _prisma_migrations_insert_input {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""
+aggregate max on columns
+"""
+type _prisma_migrations_max_fields {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""
+aggregate min on columns
+"""
+type _prisma_migrations_min_fields {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""
+response of any mutation on the table "_prisma_migrations"
+"""
+type _prisma_migrations_mutation_response {
+  """
+  number of rows affected by the mutation
+  """
+  affected_rows: Int!
+
+  """
+  data from the rows affected by the mutation
+  """
+  returning: [_prisma_migrations!]!
+}
+
+"""
+on_conflict condition type for table "_prisma_migrations"
+"""
+input _prisma_migrations_on_conflict {
+  constraint: _prisma_migrations_constraint!
+  update_columns: [_prisma_migrations_update_column!]! = []
+  where: _prisma_migrations_bool_exp
+}
+
+"""
+Ordering options when selecting data from "_prisma_migrations".
+"""
+input _prisma_migrations_order_by {
+  applied_steps_count: order_by
+  checksum: order_by
+  finished_at: order_by
+  id: order_by
+  logs: order_by
+  migration_name: order_by
+  rolled_back_at: order_by
+  started_at: order_by
+}
+
+"""
+primary key columns input for table: _prisma_migrations
+"""
+input _prisma_migrations_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "_prisma_migrations"
+"""
+enum _prisma_migrations_select_column {
+  """
+  column name
+  """
+  applied_steps_count
+
+  """
+  column name
+  """
+  checksum
+
+  """
+  column name
+  """
+  finished_at
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  logs
+
+  """
+  column name
+  """
+  migration_name
+
+  """
+  column name
+  """
+  rolled_back_at
+
+  """
+  column name
+  """
+  started_at
+}
+
+"""
+input type for updating data in table "_prisma_migrations"
+"""
+input _prisma_migrations_set_input {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""
+aggregate stddev on columns
+"""
+type _prisma_migrations_stddev_fields {
+  applied_steps_count: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type _prisma_migrations_stddev_pop_fields {
+  applied_steps_count: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type _prisma_migrations_stddev_samp_fields {
+  applied_steps_count: Float
+}
+
+"""
+Streaming cursor of the table "_prisma_migrations"
+"""
+input _prisma_migrations_stream_cursor_input {
+  """
+  Stream column input with initial value
+  """
+  initial_value: _prisma_migrations_stream_cursor_value_input!
+
+  """
+  cursor ordering
+  """
+  ordering: cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input _prisma_migrations_stream_cursor_value_input {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""
+aggregate sum on columns
+"""
+type _prisma_migrations_sum_fields {
+  applied_steps_count: Int
+}
+
+"""
+update columns of table "_prisma_migrations"
+"""
+enum _prisma_migrations_update_column {
+  """
+  column name
+  """
+  applied_steps_count
+
+  """
+  column name
+  """
+  checksum
+
+  """
+  column name
+  """
+  finished_at
+
+  """
+  column name
+  """
+  id
+
+  """
+  column name
+  """
+  logs
+
+  """
+  column name
+  """
+  migration_name
+
+  """
+  column name
+  """
+  rolled_back_at
+
+  """
+  column name
+  """
+  started_at
+}
+
+input _prisma_migrations_updates {
+  """
+  increments the numeric columns with given value of the filtered values
+  """
+  _inc: _prisma_migrations_inc_input
+
+  """
+  sets the columns of the filtered rows to the given values
+  """
+  _set: _prisma_migrations_set_input
+
+  """
+  filter the rows which have to be updated
+  """
+  where: _prisma_migrations_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type _prisma_migrations_var_pop_fields {
+  applied_steps_count: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type _prisma_migrations_var_samp_fields {
+  applied_steps_count: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type _prisma_migrations_variance_fields {
+  applied_steps_count: Float
+}
+
+"""
+ordering argument of a cursor
+"""
+enum cursor_ordering {
+  """
+  ascending ordering of the cursor
+  """
+  ASC
+
+  """
+  descending ordering of the cursor
+  """
+  DESC
+}
+
+"""
+mutation root
+"""
+type mutation_root {
+  ninjas: ninjas_mutation_frontend
+}
+
+type ninjas_mutation_frontend {
+  """
+  delete data from the table: "Bujinkan"
+  """
+  delete_Bujinkan(
+    """
+    filter the rows which have to be deleted
+    """
+    where: Bujinkan_bool_exp!
+  ): Bujinkan_mutation_response
+
+  """
+  delete single row from the table: "Bujinkan"
+  """
+  delete_Bujinkan_by_pk(id: Int!): Bujinkan
+
+  """
+  delete data from the table: "Lesson"
+  """
+  delete_Lesson(
+    """
+    filter the rows which have to be deleted
+    """
+    where: Lesson_bool_exp!
+  ): Lesson_mutation_response
+
+  """
+  delete single row from the table: "Lesson"
+  """
+  delete_Lesson_by_pk(id: Int!): Lesson
+
+  """
+  delete data from the table: "Padowan"
+  """
+  delete_Padowan(
+    """
+    filter the rows which have to be deleted
+    """
+    where: Padowan_bool_exp!
+  ): Padowan_mutation_response
+
+  """
+  delete data from the table: "PadowanToLesson"
+  """
+  delete_PadowanToLesson(
+    """
+    filter the rows which have to be deleted
+    """
+    where: PadowanToLesson_bool_exp!
+  ): PadowanToLesson_mutation_response
+
+  """
+  delete single row from the table: "PadowanToLesson"
+  """
+  delete_PadowanToLesson_by_pk(lessonId: Int!, padowanId: Int!): PadowanToLesson
+
+  """
+  delete single row from the table: "Padowan"
+  """
+  delete_Padowan_by_pk(id: Int!): Padowan
+
+  """
+  delete data from the table: "Sensei"
+  """
+  delete_Sensei(
+    """
+    filter the rows which have to be deleted
+    """
+    where: Sensei_bool_exp!
+  ): Sensei_mutation_response
+
+  """
+  delete single row from the table: "Sensei"
+  """
+  delete_Sensei_by_pk(id: Int!): Sensei
+
+  """
+  delete data from the table: "_prisma_migrations"
+  """
+  delete__prisma_migrations(
+    """
+    filter the rows which have to be deleted
+    """
+    where: _prisma_migrations_bool_exp!
+  ): _prisma_migrations_mutation_response
+
+  """
+  delete single row from the table: "_prisma_migrations"
+  """
+  delete__prisma_migrations_by_pk(id: String!): _prisma_migrations
+
+  """
+  insert data into the table: "Bujinkan"
+  """
+  insert_Bujinkan(
+    """
+    the rows to be inserted
+    """
+    objects: [Bujinkan_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: Bujinkan_on_conflict
+  ): Bujinkan_mutation_response
+
+  """
+  insert a single row into the table: "Bujinkan"
+  """
+  insert_Bujinkan_one(
+    """
+    the row to be inserted
+    """
+    object: Bujinkan_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: Bujinkan_on_conflict
+  ): Bujinkan
+
+  """
+  insert data into the table: "Lesson"
+  """
+  insert_Lesson(
+    """
+    the rows to be inserted
+    """
+    objects: [Lesson_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: Lesson_on_conflict
+  ): Lesson_mutation_response
+
+  """
+  insert a single row into the table: "Lesson"
+  """
+  insert_Lesson_one(
+    """
+    the row to be inserted
+    """
+    object: Lesson_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: Lesson_on_conflict
+  ): Lesson
+
+  """
+  insert data into the table: "Padowan"
+  """
+  insert_Padowan(
+    """
+    the rows to be inserted
+    """
+    objects: [Padowan_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: Padowan_on_conflict
+  ): Padowan_mutation_response
+
+  """
+  insert data into the table: "PadowanToLesson"
+  """
+  insert_PadowanToLesson(
+    """
+    the rows to be inserted
+    """
+    objects: [PadowanToLesson_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: PadowanToLesson_on_conflict
+  ): PadowanToLesson_mutation_response
+
+  """
+  insert a single row into the table: "PadowanToLesson"
+  """
+  insert_PadowanToLesson_one(
+    """
+    the row to be inserted
+    """
+    object: PadowanToLesson_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: PadowanToLesson_on_conflict
+  ): PadowanToLesson
+
+  """
+  insert a single row into the table: "Padowan"
+  """
+  insert_Padowan_one(
+    """
+    the row to be inserted
+    """
+    object: Padowan_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: Padowan_on_conflict
+  ): Padowan
+
+  """
+  insert data into the table: "Sensei"
+  """
+  insert_Sensei(
+    """
+    the rows to be inserted
+    """
+    objects: [Sensei_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: Sensei_on_conflict
+  ): Sensei_mutation_response
+
+  """
+  insert a single row into the table: "Sensei"
+  """
+  insert_Sensei_one(
+    """
+    the row to be inserted
+    """
+    object: Sensei_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: Sensei_on_conflict
+  ): Sensei
+
+  """
+  insert data into the table: "_prisma_migrations"
+  """
+  insert__prisma_migrations(
+    """
+    the rows to be inserted
+    """
+    objects: [_prisma_migrations_insert_input!]!
+
+    """
+    upsert condition
+    """
+    on_conflict: _prisma_migrations_on_conflict
+  ): _prisma_migrations_mutation_response
+
+  """
+  insert a single row into the table: "_prisma_migrations"
+  """
+  insert__prisma_migrations_one(
+    """
+    the row to be inserted
+    """
+    object: _prisma_migrations_insert_input!
+
+    """
+    upsert condition
+    """
+    on_conflict: _prisma_migrations_on_conflict
+  ): _prisma_migrations
+
+  """
+  update data of the table: "Bujinkan"
+  """
+  update_Bujinkan(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Bujinkan_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Bujinkan_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: Bujinkan_bool_exp!
+  ): Bujinkan_mutation_response
+
+  """
+  update single row of the table: "Bujinkan"
+  """
+  update_Bujinkan_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Bujinkan_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Bujinkan_set_input
+    pk_columns: Bujinkan_pk_columns_input!
+  ): Bujinkan
+
+  """
+  update multiples rows of table: "Bujinkan"
+  """
+  update_Bujinkan_many(
+    """
+    updates to execute, in order
+    """
+    updates: [Bujinkan_updates!]!
+  ): [Bujinkan_mutation_response]
+
+  """
+  update data of the table: "Lesson"
+  """
+  update_Lesson(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Lesson_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Lesson_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: Lesson_bool_exp!
+  ): Lesson_mutation_response
+
+  """
+  update single row of the table: "Lesson"
+  """
+  update_Lesson_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Lesson_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Lesson_set_input
+    pk_columns: Lesson_pk_columns_input!
+  ): Lesson
+
+  """
+  update multiples rows of table: "Lesson"
+  """
+  update_Lesson_many(
+    """
+    updates to execute, in order
+    """
+    updates: [Lesson_updates!]!
+  ): [Lesson_mutation_response]
+
+  """
+  update data of the table: "Padowan"
+  """
+  update_Padowan(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Padowan_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Padowan_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: Padowan_bool_exp!
+  ): Padowan_mutation_response
+
+  """
+  update data of the table: "PadowanToLesson"
+  """
+  update_PadowanToLesson(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: PadowanToLesson_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: PadowanToLesson_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: PadowanToLesson_bool_exp!
+  ): PadowanToLesson_mutation_response
+
+  """
+  update single row of the table: "PadowanToLesson"
+  """
+  update_PadowanToLesson_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: PadowanToLesson_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: PadowanToLesson_set_input
+    pk_columns: PadowanToLesson_pk_columns_input!
+  ): PadowanToLesson
+
+  """
+  update multiples rows of table: "PadowanToLesson"
+  """
+  update_PadowanToLesson_many(
+    """
+    updates to execute, in order
+    """
+    updates: [PadowanToLesson_updates!]!
+  ): [PadowanToLesson_mutation_response]
+
+  """
+  update single row of the table: "Padowan"
+  """
+  update_Padowan_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Padowan_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Padowan_set_input
+    pk_columns: Padowan_pk_columns_input!
+  ): Padowan
+
+  """
+  update multiples rows of table: "Padowan"
+  """
+  update_Padowan_many(
+    """
+    updates to execute, in order
+    """
+    updates: [Padowan_updates!]!
+  ): [Padowan_mutation_response]
+
+  """
+  update data of the table: "Sensei"
+  """
+  update_Sensei(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Sensei_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Sensei_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: Sensei_bool_exp!
+  ): Sensei_mutation_response
+
+  """
+  update single row of the table: "Sensei"
+  """
+  update_Sensei_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: Sensei_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: Sensei_set_input
+    pk_columns: Sensei_pk_columns_input!
+  ): Sensei
+
+  """
+  update multiples rows of table: "Sensei"
+  """
+  update_Sensei_many(
+    """
+    updates to execute, in order
+    """
+    updates: [Sensei_updates!]!
+  ): [Sensei_mutation_response]
+
+  """
+  update data of the table: "_prisma_migrations"
+  """
+  update__prisma_migrations(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: _prisma_migrations_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: _prisma_migrations_set_input
+
+    """
+    filter the rows which have to be updated
+    """
+    where: _prisma_migrations_bool_exp!
+  ): _prisma_migrations_mutation_response
+
+  """
+  update single row of the table: "_prisma_migrations"
+  """
+  update__prisma_migrations_by_pk(
+    """
+    increments the numeric columns with given value of the filtered values
+    """
+    _inc: _prisma_migrations_inc_input
+
+    """
+    sets the columns of the filtered rows to the given values
+    """
+    _set: _prisma_migrations_set_input
+    pk_columns: _prisma_migrations_pk_columns_input!
+  ): _prisma_migrations
+
+  """
+  update multiples rows of table: "_prisma_migrations"
+  """
+  update__prisma_migrations_many(
+    """
+    updates to execute, in order
+    """
+    updates: [_prisma_migrations_updates!]!
+  ): [_prisma_migrations_mutation_response]
+}
+
+type ninjas_query {
+  """
+  fetch data from the table: "Bujinkan"
+  """
+  Bujinkan(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Bujinkan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Bujinkan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Bujinkan_bool_exp
+  ): [Bujinkan!]!
+
+  """
+  fetch aggregated fields from the table: "Bujinkan"
+  """
+  Bujinkan_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Bujinkan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Bujinkan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Bujinkan_bool_exp
+  ): Bujinkan_aggregate!
+
+  """
+  fetch data from the table: "Bujinkan" using primary key columns
+  """
+  Bujinkan_by_pk(id: Int!): Bujinkan
+
+  """
+  fetch data from the table: "Lesson"
+  """
+  Lesson(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): [Lesson!]!
+
+  """
+  fetch aggregated fields from the table: "Lesson"
+  """
+  Lesson_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): Lesson_aggregate!
+
+  """
+  fetch data from the table: "Lesson" using primary key columns
+  """
+  Lesson_by_pk(id: Int!): Lesson
+
+  """
+  fetch data from the table: "Padowan"
+  """
+  Padowan(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Padowan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Padowan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Padowan_bool_exp
+  ): [Padowan!]!
+
+  """
+  fetch data from the table: "PadowanToLesson"
+  """
+  PadowanToLesson(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): [PadowanToLesson!]!
+
+  """
+  fetch aggregated fields from the table: "PadowanToLesson"
+  """
+  PadowanToLesson_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): PadowanToLesson_aggregate!
+
+  """
+  fetch data from the table: "PadowanToLesson" using primary key columns
+  """
+  PadowanToLesson_by_pk(lessonId: Int!, padowanId: Int!): PadowanToLesson
+
+  """
+  fetch aggregated fields from the table: "Padowan"
+  """
+  Padowan_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Padowan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Padowan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Padowan_bool_exp
+  ): Padowan_aggregate!
+
+  """
+  fetch data from the table: "Padowan" using primary key columns
+  """
+  Padowan_by_pk(id: Int!): Padowan
+
+  """
+  fetch data from the table: "Sensei"
+  """
+  Sensei(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Sensei_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Sensei_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Sensei_bool_exp
+  ): [Sensei!]!
+
+  """
+  fetch aggregated fields from the table: "Sensei"
+  """
+  Sensei_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Sensei_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Sensei_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Sensei_bool_exp
+  ): Sensei_aggregate!
+
+  """
+  fetch data from the table: "Sensei" using primary key columns
+  """
+  Sensei_by_pk(id: Int!): Sensei
+
+  """
+  fetch data from the table: "_prisma_migrations"
+  """
+  _prisma_migrations(
+    """
+    distinct select on columns
+    """
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [_prisma_migrations_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: _prisma_migrations_bool_exp
+  ): [_prisma_migrations!]!
+
+  """
+  fetch aggregated fields from the table: "_prisma_migrations"
+  """
+  _prisma_migrations_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [_prisma_migrations_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: _prisma_migrations_bool_exp
+  ): _prisma_migrations_aggregate!
+
+  """
+  fetch data from the table: "_prisma_migrations" using primary key columns
+  """
+  _prisma_migrations_by_pk(id: String!): _prisma_migrations
+}
+
+type ninjas_subscription {
+  """
+  fetch data from the table: "Bujinkan"
+  """
+  Bujinkan(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Bujinkan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Bujinkan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Bujinkan_bool_exp
+  ): [Bujinkan!]!
+
+  """
+  fetch aggregated fields from the table: "Bujinkan"
+  """
+  Bujinkan_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Bujinkan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Bujinkan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Bujinkan_bool_exp
+  ): Bujinkan_aggregate!
+
+  """
+  fetch data from the table: "Bujinkan" using primary key columns
+  """
+  Bujinkan_by_pk(id: Int!): Bujinkan
+
+  """
+  fetch data from the table in a streaming manner: "Bujinkan"
+  """
+  Bujinkan_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [Bujinkan_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: Bujinkan_bool_exp
+  ): [Bujinkan!]!
+
+  """
+  fetch data from the table: "Lesson"
+  """
+  Lesson(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): [Lesson!]!
+
+  """
+  fetch aggregated fields from the table: "Lesson"
+  """
+  Lesson_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Lesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Lesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): Lesson_aggregate!
+
+  """
+  fetch data from the table: "Lesson" using primary key columns
+  """
+  Lesson_by_pk(id: Int!): Lesson
+
+  """
+  fetch data from the table in a streaming manner: "Lesson"
+  """
+  Lesson_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [Lesson_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: Lesson_bool_exp
+  ): [Lesson!]!
+
+  """
+  fetch data from the table: "Padowan"
+  """
+  Padowan(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Padowan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Padowan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Padowan_bool_exp
+  ): [Padowan!]!
+
+  """
+  fetch data from the table: "PadowanToLesson"
+  """
+  PadowanToLesson(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): [PadowanToLesson!]!
+
+  """
+  fetch aggregated fields from the table: "PadowanToLesson"
+  """
+  PadowanToLesson_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [PadowanToLesson_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [PadowanToLesson_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): PadowanToLesson_aggregate!
+
+  """
+  fetch data from the table: "PadowanToLesson" using primary key columns
+  """
+  PadowanToLesson_by_pk(lessonId: Int!, padowanId: Int!): PadowanToLesson
+
+  """
+  fetch data from the table in a streaming manner: "PadowanToLesson"
+  """
+  PadowanToLesson_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [PadowanToLesson_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: PadowanToLesson_bool_exp
+  ): [PadowanToLesson!]!
+
+  """
+  fetch aggregated fields from the table: "Padowan"
+  """
+  Padowan_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Padowan_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Padowan_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Padowan_bool_exp
+  ): Padowan_aggregate!
+
+  """
+  fetch data from the table: "Padowan" using primary key columns
+  """
+  Padowan_by_pk(id: Int!): Padowan
+
+  """
+  fetch data from the table in a streaming manner: "Padowan"
+  """
+  Padowan_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [Padowan_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: Padowan_bool_exp
+  ): [Padowan!]!
+
+  """
+  fetch data from the table: "Sensei"
+  """
+  Sensei(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Sensei_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Sensei_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Sensei_bool_exp
+  ): [Sensei!]!
+
+  """
+  fetch aggregated fields from the table: "Sensei"
+  """
+  Sensei_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [Sensei_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [Sensei_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: Sensei_bool_exp
+  ): Sensei_aggregate!
+
+  """
+  fetch data from the table: "Sensei" using primary key columns
+  """
+  Sensei_by_pk(id: Int!): Sensei
+
+  """
+  fetch data from the table in a streaming manner: "Sensei"
+  """
+  Sensei_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [Sensei_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: Sensei_bool_exp
+  ): [Sensei!]!
+
+  """
+  fetch data from the table: "_prisma_migrations"
+  """
+  _prisma_migrations(
+    """
+    distinct select on columns
+    """
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [_prisma_migrations_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: _prisma_migrations_bool_exp
+  ): [_prisma_migrations!]!
+
+  """
+  fetch aggregated fields from the table: "_prisma_migrations"
+  """
+  _prisma_migrations_aggregate(
+    """
+    distinct select on columns
+    """
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [_prisma_migrations_order_by!]
+
+    """
+    filter the rows returned
+    """
+    where: _prisma_migrations_bool_exp
+  ): _prisma_migrations_aggregate!
+
+  """
+  fetch data from the table: "_prisma_migrations" using primary key columns
+  """
+  _prisma_migrations_by_pk(id: String!): _prisma_migrations
+
+  """
+  fetch data from the table in a streaming manner: "_prisma_migrations"
+  """
+  _prisma_migrations_stream(
+    """
+    maximum number of rows returned in a single batch
+    """
+    batch_size: Int!
+
+    """
+    cursor to stream the results returned by the query
+    """
+    cursor: [_prisma_migrations_stream_cursor_input]!
+
+    """
+    filter the rows returned
+    """
+    where: _prisma_migrations_bool_exp
+  ): [_prisma_migrations!]!
+}
+
+"""
+column ordering options
+"""
+enum order_by {
+  """
+  in ascending order, nulls last
+  """
+  asc
+
+  """
+  in ascending order, nulls first
+  """
+  asc_nulls_first
+
+  """
+  in ascending order, nulls last
+  """
+  asc_nulls_last
+
+  """
+  in descending order, nulls first
+  """
+  desc
+
+  """
+  in descending order, nulls first
+  """
+  desc_nulls_first
+
+  """
+  in descending order, nulls last
+  """
+  desc_nulls_last
+}
+
+type query_root {
+  ninjas: ninjas_query
+}
+
+type subscription_root {
+  ninjas: ninjas_subscription
+}
+
+scalar timestamp
+
+"""
+Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'.
+"""
+input timestamp_comparison_exp {
+  _eq: timestamp
+  _gt: timestamp
+  _gte: timestamp
+  _in: [timestamp!]
+  _is_null: Boolean
+  _lt: timestamp
+  _lte: timestamp
+  _neq: timestamp
+  _nin: [timestamp!]
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}

@@ -1,0 +1,4 @@
+projects:
+  server:
+    schema: ./schema.graphql
+    documents: apps/frontend/src/graphql/**/*.ts

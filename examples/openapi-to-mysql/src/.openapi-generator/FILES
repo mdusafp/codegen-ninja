@@ -1,0 +1,11 @@
+.openapi-generator-ignore
+Model/Address.sql
+Model/ApiResponse.sql
+Model/Category.sql
+Model/Customer.sql
+Model/Order.sql
+Model/Pet.sql
+Model/Tag.sql
+Model/User.sql
+README.md
+mysql_schema.sql

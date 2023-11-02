@@ -1,73 +1,117 @@
-import { PrismaClient, MartialArt, Weapon } from 'prisma/prisma-client';
-import * as AAA from 'prisma/prisma-client'
-import { randFullName, randCompanyName } from '@ngneat/falso'
+import { PrismaClient, Subject } from 'prisma/prisma-client';
+import { randFullName, randCompanyName, randBetweenDate } from '@ngneat/falso';
 
-const BUJINKAN_COUNT = 10
-const PADOWAN_COUNT = 100
-const SENSEI_COUNT = 30
+const BUJINKAN_COUNT = 10;
+const PADOWAN_COUNT = 100;
+const SENSEI_COUNT = 30;
+const LESSONS_COUNT = 60;
 
-const MARTIAL_ARTS = Object.values(MartialArt)
+const SUBJECTS = Object.values(Subject);
 
 async function main() {
   const client = new PrismaClient();
 
-  const generateFullName = () => randFullName({
-    gender: Math.random() > 0.5 ? 'male' : 'female',
-    withAccents: Math.random() > 0.5,
-  })
+  const generateFullName = () =>
+    randFullName({
+      gender: Math.random() > 0.5 ? 'male' : 'female',
+      withAccents: Math.random() > 0.5,
+    });
 
-  const randomIndex = (array: unknown[]) => Math.floor(Math.random() * array.length)
+  const randNumber = (min = 0, max = 100) =>
+    Math.floor(Math.random() * max) + min;
 
-  const generateMartialArt = () => MARTIAL_ARTS[randomIndex(MARTIAL_ARTS)]
+  const randomIndex = (array: unknown[]) => randNumber(0, array.length);
+
+  const generateSubject = () => SUBJECTS[randomIndex(SUBJECTS)];
 
   await client.$transaction(async (tx) => {
     await tx.bujinkan.createMany({
       data: Array.from({ length: BUJINKAN_COUNT }, (v, k) => ({
         name: randCompanyName({
-          locale: ''
+          locale: 'ja',
         }),
-        mainArt: generateMartialArt(),
-      }))
-    })
+      })),
+    });
 
-    const bujinkans = await tx.bujinkan.findMany()
-    console.log("🚀 ~ file: test.ts:32 ~ awaitclient.$transaction ~ bujinkans:", bujinkans.map(o => o.name))
+    const bujinkans = await tx.bujinkan.findMany();
+    console.log(
+      '🚀 ~ file: test.ts:32 ~ awaitclient.$transaction ~ bujinkans:',
+      bujinkans.map((o) => `${o.id}. ${o.name}`)
+    );
+
+    const randomBujinkan = () => bujinkans[randomIndex(bujinkans)];
 
     await tx.sensei.createMany({
-      data: Array.from({ length: SENSEI_COUNT }, (v,k) => ({
-        bujinkanId: 0,
-        favoriteWeapon: AAA.Weapon.Kaginawa,
-        mainArt: AAA.MartialArt.Bajutsu,
+      data: Array.from({ length: SENSEI_COUNT }, (v, k) => ({
         name: generateFullName(),
-      }))
-    })
+      })),
+    });
 
-    const senseis = await tx.sensei.findMany()
-    console.log("🚀 ~ file: test.ts:32 ~ awaitclient.$transaction ~ bujinkans:", senseis.map(o => o.name))
+    const senseis = await tx.sensei.findMany();
+    console.log(
+      '🚀 ~ file: test.ts:32 ~ awaitclient.$transaction ~ senseis:',
+      senseis.map((o) => `${o.id}. ${o.name}`)
+    );
 
-    console.log("🚀 ~ file: test.ts:30 ~ client.$transaction ~ bujinkans:", bujinkans)
+    const randomSensei = () => senseis[randomIndex(senseis)];
 
-    // tx.padowan.createMany({
-    //   data: [
-    //     {
-    //       name: generateFullName(),
-    //       bujinkanId: 0,
-    //       senseiId: 0,
-    //     }
-    //   ],
-    // })
-  })
-  // client.padowan.createMany({
-  //   data: [
-  //     {
-        
-  //     }
-  //   ]
-  // })
+    console.log(
+      '🚀 ~ file: test.ts:30 ~ client.$transaction ~ bujinkans:',
+      bujinkans
+    );
 
-  const padowans = Array.from({ length: 50 }, (v, k) => ({
+    await tx.padowan.createMany({
+      data: Array.from({ length: PADOWAN_COUNT }, (v, k) => ({
+        name: generateFullName(),
+      })),
+    });
 
-  }))
+    const padowans = await tx.padowan.findMany();
+    console.log(
+      '🚀 ~ file: test.ts:32 ~ awaitclient.$transaction ~ padowans:',
+      padowans.map((o) => o.name)
+    );
+
+    const randomPadowan = () => padowans[randomIndex(padowans)];
+
+    await tx.lesson.createMany({
+      data: Array.from({ length: LESSONS_COUNT }, (v, k) => ({
+        bujinkanId: randomBujinkan().id,
+        lessonTime: randBetweenDate({
+          from: new Date('01/11/2023'),
+          to: new Date('01/11/2024'),
+        }),
+        senseiId: randomSensei().id,
+        subject: generateSubject(),
+      })),
+    });
+
+    const lessons = await tx.lesson.findMany();
+    console.log(
+      '🚀 ~ file: test.ts:32 ~ awaitclient.$transaction ~ lessons:',
+      lessons.map((o) => `${o.bujinkanId}. ${o.subject}`)
+    );
+
+    const uniqSet = new Set<string>([]);
+
+    await tx.padowanToLesson.createMany({
+      data: lessons
+        .flatMap((lesson) =>
+          Array.from({ length: randNumber(1, 10) }, (v, k) => {
+            const padowanId = randomPadowan().id;
+            if (uniqSet.has(`${lesson.id}:${padowanId}`)) {
+              return null;
+            }
+            uniqSet.add(`${lesson.id}:${padowanId}`);
+            return {
+              padowanId,
+              lessonId: lesson.id,
+            };
+          })
+        )
+        .filter(Boolean),
+    } as Parameters<typeof tx.padowanToLesson.createMany>[0]);
+  });
 }
 
-main()
+main();

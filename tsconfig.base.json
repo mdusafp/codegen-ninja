@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@codegen-ninja/apps/custom-plugin": ["apps/custom-plugin/src/index.ts"],
+      "@codegen-ninja/my-plugin": ["my-plugin/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
